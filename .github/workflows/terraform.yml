@@ -3,7 +3,7 @@ name: Terraform on Azure using OIDC
 on:
   push:
     branches:
-      - design
+      - main
   pull_request:
 
 permissions:
