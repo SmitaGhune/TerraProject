@@ -3,7 +3,7 @@ name: Terraform on Azure using OIDC
 on:
   push:
     branches:
-      - design
+      - main
   pull_request:
 
 permissions:
@@ -39,6 +39,6 @@ jobs:
         run: terraform plan -out=tfplan
 
       # Uncomment the next block if you want auto apply on push to main
-      - name: Terraform Apply
+     # - name: Terraform Apply
       #   if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+       # run: terraform apply -auto-approve tfplan
