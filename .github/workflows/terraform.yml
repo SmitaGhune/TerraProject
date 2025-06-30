@@ -3,7 +3,7 @@ name: Terraform Azure CI
 on:
   push:
     branches:
-      - main
+      - design
   pull_request:
 
 jobs:
