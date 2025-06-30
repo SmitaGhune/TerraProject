@@ -12,3 +12,5 @@ variable "storage_account_name" {
   type = string
   default = "mystorageacct98"
 }
+
+variable "subscription_id" {}
