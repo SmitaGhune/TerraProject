@@ -53,7 +53,7 @@ jobs:
           # Check and import Storage Account
           if az storage account show --name mystorageacct98 --resource-group rg-terraform --query id -o tsv >/dev/null 2>&1; then
              echo "Importing existing Storage Account..."
-             terraform import azurerm_storage_account.sa /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate123456
+             terraform import azurerm_storage_account.storage /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate123456
           else
           echo "Storage Account does not exist. Skipping import."
           fi
