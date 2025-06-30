@@ -35,9 +35,6 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
-
       - name: Import existing Azure resources if not already in Terraform state
         run: |
           set -e
@@ -63,6 +60,8 @@ jobs:
           else
             echo "Storage Account does not exist in Azure. Skipping import."
           fi
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan     
 
       # Uncomment the next block if you want auto apply on push to main
       - name: Terraform Apply
