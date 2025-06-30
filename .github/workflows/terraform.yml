@@ -33,4 +33,4 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -var="storage_account_name=mystorageacct2025"
+        run: terraform plan -var="storage_account_name=mystorageacctsmith2025"
