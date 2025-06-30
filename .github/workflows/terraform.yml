@@ -38,6 +38,26 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
+      - name: Import existing resources if they exist
+        run: |
+          set -e
+
+          # Check and import Resource Group
+          if az group show --name rg-terraform --query id -o tsv >/dev/null 2>&1; then
+             echo "Importing existing Resource Group..."
+             terraform import azurerm_resource_group.rg /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform
+          else
+             echo "Resource Group does not exist. Skipping import."
+          fi
+
+          # Check and import Storage Account
+          if az storage account show --name mystorageacct98 --resource-group rg-terraform --query id -o tsv >/dev/null 2>&1; then
+             echo "Importing existing Storage Account..."
+             terraform import azurerm_storage_account.sa /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate123456
+          else
+          echo "Storage Account does not exist. Skipping import."
+          fi
+
       # Uncomment the next block if you want auto apply on push to main
       - name: Terraform Apply
       #   if: github.ref == 'refs/heads/main'
