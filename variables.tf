@@ -13,10 +13,6 @@ variable "storage_account_name" {
 }
 
 variable "subscription_id" {}
-variable "location" {
-  type        = string
-  description = "Azure location for all resources"
-}
 
 variable "vnet_name" {
   type        = string
