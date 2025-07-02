@@ -35,31 +35,31 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Import existing Azure resources if not already in Terraform state
-        run: |
-          set -e
+     # - name: Import existing Azure resources if not already in Terraform state
+      #  run: |
+        #  set -e
       
-          echo "Checking and importing Resource Group..."
-          if az group show --name rg-terraform --query id -o tsv >/dev/null 2>&1; then
-            if ! terraform state show azurerm_resource_group.rg >/dev/null 2>&1; then
-              terraform import azurerm_resource_group.rg /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform
-            else
-              echo "Resource Group already in Terraform state. Skipping import."
-            fi
-          else
-            echo "Resource Group does not exist in Azure. Skipping import."
-          fi
+         # echo "Checking and importing Resource Group..."
+         # if az group show --name rg-terraform --query id -o tsv >/dev/null 2>&1; then
+            #if ! terraform state show azurerm_resource_group.rg >/dev/null 2>&1; then
+           #   terraform import azurerm_resource_group.rg /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform
+           # else
+             # echo "Resource Group already in Terraform state. Skipping import."
+            #fi
+          #else
+           # echo "Resource Group does not exist in Azure. Skipping import."
+     #     fi
       
-          echo "Checking and importing Storage Account..."
-          if az storage account show --name mystorageacct98 --resource-group rg-terraform --query id -o tsv >/dev/null 2>&1; then
-            if ! terraform state show azurerm_storage_account.storage >/dev/null 2>&1; then
-              terraform import azurerm_storage_account.storage /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/mystorageacct98
-            else
-              echo "Storage Account already in Terraform state. Skipping import."
-            fi
-          else
-            echo "Storage Account does not exist in Azure. Skipping import."
-          fi
+      #    echo "Checking and importing Storage Account..."
+       #   if az storage account show --name mystorageacct98 --resource-group rg-terraform --query id -o tsv >/dev/null 2>&1; then
+        #    if ! terraform state show azurerm_storage_account.storage >/dev/null 2>&1; then
+         #     terraform import azurerm_storage_account.storage /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/mystorageacct98
+          #  else
+           #   echo "Storage Account already in Terraform state. Skipping import."
+            #fi
+         # else
+          #  echo "Storage Account does not exist in Azure. Skipping import."
+          #fi
       - name: Terraform Plan
         run: terraform plan -out=tfplan     
 
